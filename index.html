@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="src/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="src/css/main.css">
+    <link rel="stylesheet" href="src/css/sticky-footer-navbar.css">
+    <link rel="stylesheet" href="src/css/select2.min.css">
+    <link rel="stylesheet" href="src/css/select2-bootstrap.min.css">
+    <!-- for intr.js -->
+    <link rel="stylesheet" href="src/introjs.css">
+
+
+    <!-- External JavaScript libraries -->
+    <script src="src/js/libs/jquery-3.2.1.min.js"></script>
+    <!--for intr.js file -->
+    <script src="src/intro.js"></script>
+    <script src="src/js/libs/select2.min.js"></script>
+    <script src="src/js/libs/popper.min.js"></script>
+    <script src="src/js/libs/bootstrap.min.js"></script>
+    <script src="src/js/libs/d3.v3.min.js"></script>
+    <script src="src/js/libs/d3-legend.min.js"></script>
+    <script src="src/js/libs/topojson.min.js"></script>
+    <script src="src/js/libs/d3-queue.v3.min.js"></script>
+    <script src="src/js/libs/d3-collection.v1.min.js"></script>
+    <script src="src/js/libs/datamaps.world.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="src/js/countrySearch.js"></script>
+    <script src="src/js/helpers.js"></script>
+    <script src="src/js/castDashboard.js"></script>
+    <script src="src/js/refreshDashboard.js"></script>
+
+    <title>Worldwide Security Incidents and Data Breaches Viz</title>
+</head>
+
+<body>
+    <header>
+        <!-- Sticky navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #37474F;" id="topmenu">
+            <a class="navbar-brand" href="https://rishirajbhosale.github.io/">CSc-196V Final Project</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="https://rishirajbhosale.github.io/">Dashboard<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#aboutModal">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/vz-risk/VCDB">Data Source</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0);" data-toggle="#" data-target="_blank" onclick="introJs().start();">Show Me</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Select2 country search bar -->
+            <span class="navbar-text">
+              Country:
+            </span>
+            <div class="searchWrapper float-right">
+                <form class="form-inline">
+                    <select name="country"></select>
+                </form>
+            </div>
+            <!-- Dropdown menu for data period -->
+            <span class="navbar-text">
+              Time Period:
+            </span>
+            <form class="form-control-sm">
+                <div class="form-row align-items-center" id="dataPeriod">
+                    <div class="col-auto my-1">
+                        <select class="custom-select mr-sm-2 form-control-sm" id="inlineFormCustomSelect" autocomplete="off">
+                          <option selected value="All-time">All-time</option>
+                          <option value="2017">2017</option>
+                          <option value="2016">2016</option>
+                          <option value="2015">2015</option>
+                          <option value="2014">2014</option>
+                          <option value="2013">2013</option>
+                          <option value="2012">2012</option>
+                          <option value="2011">2011</option>
+                          <option value="2010">2010</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </nav>
+    </header>
+    <main role="main">
+        <!-- D3 visualisations -->
+        <div class="container-fluid text-center">
+            <div class="alert alert-warning collapse alert-fixed" role="alert" id="nodata-alert">
+            </div>
+            <h2>Security Incidents and Data Breaches</h2>
+            <div class="row">
+                <div class="col-7" data-intro="The world map shows the amount of computer security related incidents and breaches (CSRIB) that occurred over time by country. Hovering over the countries shows the amount of incidents for that particular country in the selected time period. Clicking a country updates the other three visualisations to show data for the selected country. The same functionality can be achieved by searching for a country in the search bar located in the top menu." id="worldmap" data-step="1">
+                    <h3>By Country</h3>
+                </div>
+                <div class="col-5" id="barchart" data-intro="The bar chart shows a more in depth view of the data, either worldwide or by country (as do the heat map and the pie chart). It takes the amount of incidents found in the world map and distributes them over the relevant industries."  data-step="2">
+                    <h3 id="barchartTitle">By Industry</h3>
+                </div>
+                <div class="w-100">
+                    <hr size="20px">
+                </div>
+                <div class="col-7">
+                    <div id="heatmap" data-intro="The heat map shows an incident count of each industry and what cause led to the incident. For example: During 2015 there were 17 IT security incidents in the Health Care industry due to an error in the United Kingdom."  data-step="3">
+                        <h3>By Industry &amp; Cause of Incident</h3>
+                    </div>
+                </div>
+                <div class="col-5" id="piechart" data-intro="The pie chart does not show data per industry. Instead, it aggregates all the data for a certain time period (worldwide or country) and shows which assets were involved in the incidents. For example, in 2015 39% of the incidents in the United States involved a server as the primary asset."  data-step="4">
+                    <h3>By Targeted Asset</h3>
+                </div>
+            </div>
+        </div>
+        <!-- About Modal, triggered by navbar button -->
+        <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="aboutModalLabel">About This Dashboard</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5>The Visualisations</h5>
+                        <h6>World Map</h6>
+                        <p>
+                            The world map shows the amount of computer security
+                            related incidents and breaches (CSRIB) that occurred over
+                            time by country.
+                            Hovering over the countries shows the amount of
+                            incidents for that particular country in the
+                            selected time period. Clicking a country updates
+                            the other three visualisations to show data
+                            for the selected country. The same functionality can be
+                            achieved by searching for a country in the search bar
+                            located in the top menu.
+                        </p>
+                        <h6>Horizontal Bar Chart</h6>
+                        <p>
+                            The bar chart shows a more in depth view of the data,
+                            either worldwide or by country (as do the heat map
+                            and the pie chart).
+                            It takes the amount of incidents found in the world
+                            map and distributes them over the relevant industries.
+                        </p>
+                        <h6>Heat Map</h6>
+                        <p>
+                            The heat map shows an incident count of each industry and
+                            what cause led to the incident. For example:
+                            During 2015 there were 17 IT security incidents
+                            in the Health Care industry due to an error in the United Kingdom.
+                        </p>
+                        <h6>Pie Chart</h6>
+                        <p>
+                            The pie chart does <b>not</b> show data per industry.
+                            Instead, it aggregates all the data for a certain
+                            time period (worldwide or country) and
+                            shows which assets were involved in the incidents. For
+                            example, in 2015 39% of the incidents in the
+                            United States involved a server as the primary asset.
+                        </p>
+                        <h5>The Data</h5>
+                        <h6>VERIS Community Database</h6>
+                        <p>
+                            The data source for this dashboard is the VERIS
+                            Community Database (VCDB). VCDB is a community
+                            data initiative to catalog security incidents
+                            in the public domain using the VERIS framework.
+                            You can read more about this dataset
+                            <a href="http://vcdb.org/">here</a>.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="text-center">
+        <div>
+            <span class="text-muted">by Akhil Medineni</span>
+
+        </div>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+
+
+html, body {
+    height: 100%;
+}
+
+/* use flex mechanism to achieve (some) responsiveness */
+body {
+    background-color: #F9F9F9;
+    color: #84868e;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    padding-top: 5em;
+}
+
+/* heading types used on the dashboard */
+h2, h3 {
+    font-weight: 300;
+    padding-bottom: 0.75em;
+}
+
+/* Top menu styling */
+.navbar {
+    margin-bottom: 2em;
+}
+
+.navbar-text {
+    padding-left: 1em;
+}
+
+/* country search on the navbar */
+.searchWrapper {
+    padding-left: 1em;
+    width: 15%;
+}
+
+/* create space between the span text and the dropdown menu */
+#dataPeriod {
+    padding-left: 1em;
+}
+
+/* hover effect in the bar chart */
+.bar:hover {
+    opacity: 0.85;
+    transition: fill 0.15s;
+}
+
+/* text within the bar chart */
+#barchart text {
+    font-size: 0.65em;
+}
+
+/* heat map styling */
+#heatmap {
+    min-height: 420px;
+}
+
+/* creates a hover effect (highlight border) on the heat map cells */
+.heatcell:hover {
+    stroke: #FFF;
+    stroke-width: 3;
+    shape-rendering: crispEdges;
+}
+
+/* pie chart styling */
+.slice {
+    stroke: #FFF;
+    stroke-width: 0.5;
+}
+
+/* force a min height so charts are properly shown */
+.row {
+    min-height: 86vh;
+}
+
+/* overarching container that contains the content */
+.container-fluid {
+    /* pushes the content inwards instead of being near the sides */
+    padding: 0em 5em 3em 5em;
+}
+
+/* general svg styling */
+svg {
+    border-radius: 6px;
+    background-color: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 5px #ddd;
+}
+
+/* additional footer syling */
+footer {
+    border-top: .05rem solid #E0E0E0;
+    background-color: #e5e5e5;
+    flex-shrink: 0;
+    padding: 20px;
+}
+
+/* axis styling for the charts */
+.axis text, .legendAxis {
+    font-size: 0.7em;
+    fill: #84868e;
+}
+
+/* axis line styling */
+.axis path, .axis line {
+    fill: none;
+    stroke: #84868e;
+    shape-rendering: crispEdges;
+}
+
+/* tooltip used in heat map and pie chart */
+#tooltip {
+    position: absolute;
+    width: auto;
+    height: auto;
+    font-size: 0.75em;
+    padding: 10px;
+    background-color: white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    -mox-box-shadow: 4px 4px 4px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 10px rbga(0, 0, 0, 0.4) pointer-events: none;
+}
+
+#tooltip.hidden {
+    opacity: 0;
+}
+
+/* laptop screens */
+@media only screen and (min-device-width: 1200px) and (max-device-width: 1600px) {
+    .row {
+        min-height: 70vh;
+    }
+}
+
+/* no data error which shows up beneath the navbar */
+.alert-fixed {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    z-index: 1000;
+    border-radius: 0px
+}
