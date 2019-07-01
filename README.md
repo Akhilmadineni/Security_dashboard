@@ -59,7 +59,7 @@ A heat map that shows the industries and what type of attack is dominant in that
 
 - Interactive pie chart 
 
-A simple bar chart that distributes the incidents by targeted asset, what device/person got attacked?
+A simple pie chart that distributes the incidents by targeted asset, what device/person got attacked?
 
 - Dropdown menu: Year 
 
