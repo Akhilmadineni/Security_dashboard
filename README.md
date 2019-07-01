@@ -13,7 +13,7 @@ For product demonstraion click on show demo in the website.
 - [D3-collection](https://github.com/d3/d3-collection) by mbostock
 - [TopoJSON](https://github.com/topojson/topojson) by mbostock
 - [Select2](https://select2.org/) by Kevin Brown
-- [Bootstrap](https://getbootstrap.com/) by 
+- [Bootstrap](https://getbootstrap.com/) 
 
 **Table of Contents**
 - Introduction
