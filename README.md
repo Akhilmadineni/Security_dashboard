@@ -77,8 +77,4 @@ on the victim, the actor, the attack and other details of the security incident.
 to use JSON format I might have to transform (text to numbers) or delete (incident summary) to make it usable and slim down
 the file size.
 
-# Authors
-
-Akhil Madineni // [LinkedIn](https://www.linkedin.com/in/akhil-madineni-7a39ab155/)
-
 
